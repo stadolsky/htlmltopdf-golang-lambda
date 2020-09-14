@@ -10,7 +10,7 @@
 
 #### Copy AWS Layer from the docker container
 
-`$ ocker run --rm -it -v $(pwd):/data wkhtmltopdf-layer-factory cp /layer/wkhtmltopdf-go.zip /data/output`
+`$ docker run --rm -it -v $(pwd):/data wkhtmltopdf-layer-factory cp /layer/wkhtmltopdf-go.zip /data/output`
 
  
 **In the end all files will be located in `output` dir**
