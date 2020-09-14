@@ -18,10 +18,14 @@ RUN mkdir layer
 WORKDIR /layer
 RUN cp /usr/local/bin/wkhtmltopdf wkhtmltopdf
 RUN ldd -u /usr/local/bin/wkhtmltopdf | grep lib64 | xargs cp -t ./
+# remove some libs before zip
+RUN rm -f libdl.so.2
+RUN rm -f libm.so.6
+RUN rm -f librt.so.1
 
 # Make zip file for AWS layer
 RUN yum -y install zip
-RUN zip -r wkhtmltopdf.zip ./* -x "wkhtmltopdf.zip"
+RUN zip -r wkhtmltopdf-go.zip ./* -x "wkhtmltopdf-go.zip"
 
 # check archive(zip) info
-RUN ls -l wkhtmltopdf.zip
+RUN ls -l wkhtmltopdf-go.zip
