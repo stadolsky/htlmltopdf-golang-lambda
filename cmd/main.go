@@ -33,6 +33,12 @@ func HandleLambdaEvent(event Event) (*Response, error) {
 
 	// Set global options
 	pdfg.Dpi.Set(600)
+	pdfg.PageSize.Set(wkhtmltopdf.PageSizeA4)
+	pdfg.MarginLeft.Set(0)
+	pdfg.MarginRight.Set(0)
+	pdfg.MarginTop.Set(0)
+	pdfg.MarginBottom.Set(0)
+
 	if event.PDFOptions.IsLandscape { // Portrait is default option
 		pdfg.Orientation.Set(wkhtmltopdf.OrientationLandscape)
 	}
@@ -45,6 +51,7 @@ func HandleLambdaEvent(event Event) (*Response, error) {
 
 	page := wkhtmltopdf.NewPageReader(bytes.NewReader(htmlBytes))
 
+	page.DisableSmartShrinking.Set(true)
 	if event.PDFOptions.NeedPagination {
 		page.FooterRight.Set("[page]")
 	}
